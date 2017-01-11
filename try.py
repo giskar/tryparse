@@ -7,22 +7,22 @@ html_doc =  urllib.request.urlopen('http://pikabu.ru/').read()
 soup = BeautifulSoup(html_doc, "html.parser")
 
 
-a = soup.find('div', 'story')
+story = soup.find('div', 'story')
 feeds=[]
 while True:
     try:
-        b = a.find('a', 'story__author').get_text()
-        c = a.find('div', 'story__tags').get_text()
-        d = a.find('a').get('href')
-        e = a.find('a').get_text(strip=True)
-        t = a.find('div', 'story__rating-count').get_text(strip=True)
-        a = a.find_next('div', 'story')
+        author = story.find('a', 'story__author').get_text()
+        tags = story.find('div', 'story__tags').get_text()
+        link = story.find('a').get('href')
+        name = story.find('a').get_text(strip=True)
+        rate = story.find('div', 'story__rating-count').get_text(strip=True)
+        story = story.find_next('div', 'story')
         data = {
-        'author': b,
-        'tags': c.split( ),
-        'link': d,
-        'name': e,
-        'rate': t
+        'author': author,
+        'tags': tags.split( ),
+        'link': link,
+        'name': name,
+        'rate': rate
         }
         feeds.append(data)
 
